@@ -1,25 +1,41 @@
-// Ads & Analytics
+// Ads
 document.addEventListener('DOMContentLoaded', function () {
-  function handleChange(elementId, storageKey) {
-    var element = document.getElementById(elementId);
-    if (!element) return;
-
-    element.addEventListener('change', function () {
-      var selectedValue = this.value;
-      localStorage.setItem(storageKey, selectedValue);
-    });
-
-    var storedValue = localStorage.getItem(storageKey);
-    if (storedValue === 'on' || storedValue === 'off') {
-      element.value = storedValue;
-    } else {
-      element.value = 'default';
+  function adChange(selectedValue) {
+    if (selectedValue === 'default') {
+      localStorage.setItem('ad', 'on')
+    } else if (selectedValue === 'off') {
+      localStorage.setItem('ad', 'off')
     }
   }
 
-  handleChange('adType', 'ad');
-  handleChange('aType', 'an');
-});
+  var adTypeElement = document.getElementById('adType')
+
+  if (adTypeElement) {
+    adTypeElement.addEventListener('change', function () {
+      var selectedOption = this.value
+      adChange(selectedOption)
+    })
+
+    var storedAd = localStorage.getItem('ad')
+    if (storedAd === 'on') {
+      adTypeElement.value = 'default'
+    } else if (storedAd === 'off') {
+      adTypeElement.value = 'off'
+    } else {
+      adTypeElement.value = 'default'
+    }
+  }
+  //makes the custom icon and name persistent
+  const iconElement = document.getElementById('icon')
+  const nameElement = document.getElementById('name')
+  const customIcon = localStorage.getItem('CustomIcon')
+  const customName = localStorage.getItem('CustomName')
+  iconElement.value = customIcon
+  nameElement.value = customName
+
+  localStorage.setItem('ab', true)
+  document.getElementById('ab-settings-switch').checked = true
+})
 
 // Dyn
 document.addEventListener('DOMContentLoaded', function () {
@@ -53,11 +69,12 @@ document.addEventListener('DOMContentLoaded', function () {
 })
 
 // Key
-var eventKey = localStorage.getItem('eventKey') || '`'
-var pLink = localStorage.getItem('pLink') || 'https://classroom.google.com/'
+let eventKey = localStorage.getItem('eventKey') || '`'
+let eventKeyRaw = localStorage.getItem('eventKeyRaw') || '`'
+let pLink = localStorage.getItem('pLink') || 'https://classroom.google.com/'
 
 document.addEventListener('DOMContentLoaded', function () {
-  document.getElementById('eventKeyInput').value = eventKey
+  document.getElementById('eventKeyInput').value = eventKeyRaw
   document.getElementById('linkInput').value = pLink
 
   const selectedOption = localStorage.getItem('selectedOption')
@@ -66,9 +83,9 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 })
 
-var eventKeyInput = document.getElementById('eventKeyInput')
+const eventKeyInput = document.getElementById('eventKeyInput')
 eventKeyInput.addEventListener('input', function () {
-  eventKey = eventKeyInput.value
+  eventKey = eventKeyInput.value.split(',')
 })
 
 var linkInput = document.getElementById('linkInput')
@@ -77,9 +94,12 @@ linkInput.addEventListener('input', function () {
 })
 
 function saveEventKey() {
-  eventKey = eventKeyInput.value
-  localStorage.setItem('eventKey', eventKey)
+  eventKey = eventKeyInput.value.split(',')
+  eventKeyRaw = eventKeyInput.value
+  localStorage.setItem('eventKey', JSON.stringify(eventKey))
   localStorage.setItem('pLink', pLink)
+  localStorage.setItem('eventKeyRaw', eventKeyRaw)
+  window.location = window.location
 }
 // Tab Cloaker
 var dropdown = document.getElementById('dropdown')
@@ -124,6 +144,12 @@ function CustomName() {
   console.log('saveName function called with name value:', nameValue)
   localStorage.setItem('CustomName', nameValue)
 }
+function ResetCustomCloak() {
+  localStorage.removeItem('CustomName')
+  localStorage.removeItem('CustomIcon')
+  document.getElementById('icon').value = ''
+  document.getElementById('name').value = ''
+}
 
 function redirectToMainDomain() {
   var currentUrl = window.location.href
@@ -163,23 +189,6 @@ function updateHeadSection(selectedValue) {
     icon.setAttribute('href', customIcon)
     localStorage.setItem('name', customName)
     localStorage.setItem('icon', customIcon)
-  } else {
-    if (selectedValue === 'Google') {
-      icon.setAttribute('href', '/assets/media/favicon/google.png')
-      name.textContent = 'Google'
-      localStorage.setItem('name', 'Google')
-      localStorage.setItem('icon', '/assets/media/favicon/google.png')
-    } else if (selectedValue === 'Drive') {
-      icon.setAttribute('href', '/assets/media/favicon/drive.png')
-      name.textContent = 'My Drive - Google Drive'
-      localStorage.setItem('name', 'My Drive - Google Drive')
-      localStorage.setItem('icon', '/assets/media/favicon/drive.png')
-    } else if (selectedValue === 'Classroom') {
-      icon.setAttribute('href', '/assets/media/favicon/classroom.png')
-      name.textContent = 'Home'
-      localStorage.setItem('name', 'Home')
-      localStorage.setItem('icon', '/assets/media/favicon/classroom.png')
-    }
   }
 }
 // Background Image
@@ -271,19 +280,35 @@ function AB() {
       const iframe = doc.createElement('iframe')
       const style = iframe.style
       const link = doc.createElement('link')
+
       const name = localStorage.getItem('name') || 'My Drive - Google Drive'
       const icon = localStorage.getItem('icon') || 'https://ssl.gstatic.com/docs/doclist/images/drive_2022q3_32dp.png'
+
       doc.title = name
       link.rel = 'icon'
       link.href = icon
+
       iframe.src = location.href
       style.position = 'fixed'
       style.top = style.bottom = style.left = style.right = 0
       style.border = style.outline = 'none'
       style.width = style.height = '100%'
+
       doc.head.appendChild(link)
       doc.body.appendChild(iframe)
-      location.replace('https://classroom.google.com')
+
+      const pLink = localStorage.getItem(encodeURI('pLink')) || 'https://www.nasa.gov/'
+      location.replace(pLink)
+
+      const script = doc.createElement('script')
+      script.textContent = `
+        window.onbeforeunload = function (event) {
+          const confirmationMessage = 'Leave Site?';
+          (event || window.event).returnValue = confirmationMessage;
+          return confirmationMessage;
+        };
+      `
+      doc.head.appendChild(script)
     }
   }
 }

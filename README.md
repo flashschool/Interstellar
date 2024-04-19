@@ -1,6 +1,6 @@
 <div align="center">
     <img src="https://github.com/InterstellarNetwork/Interstellar/assets/89202835/77c63680-544b-42e9-88d6-d288e7681e82">
-    <p>Serving over 8 million users since 2023.<p>
+    <p>Serving over 8+ million users since 2023.<p>
     <p>Interstellar is a web proxy with a Clean and Sleek UI and easy to use menus. Our goal is to provide the best user experience to everyone.</p>
 </div>
 
@@ -13,20 +13,35 @@
 
 ## Features
 
-<div align="center">
-
-| Wide Collection of Games |  Tab Cloaking   | Wide collection of Apps |
-| :----------------------: | :-------------: | :---------------------: |
-|   About:Blank Cloaking   |   Fast Speeds   |   Built in Tab system   |
-|         Clean UI         | Inspect Element |     Now.gg support      |
-|   Password Protection    |     Themes      |   GeForce NOW support   |
-
-</div>
+- About:Blank Cloaking 
+- Tab Cloaking 
+- Wide collection of apps & games 
+- Clean, Easy to use UI 
+- Inspect Element 
+- Various Themes 
+- Password Protection (Optional) 
+- Built in Tab System 
+- Now.gg Support 
+- Fast Speeds 
+- Geforce NOW Support 
 
 ## Deployment
 
 > [!IMPORTANT]
 > You **cannot** deploy to static web hosts, including Netlify, Cloudflare Pages, and GitHub Pages.
+
+### Server Deployment
+
+You must run these commands on your server:  
+`git clone https://github.com/InterstellarNetwork/interstellar`  
+`cd interstellar`  
+`npm install`  
+`npm start`
+
+### Updating
+
+`cd interstellar`  
+`git pull --force --allow-unrelated-histories`
 
 <a target="_blank" href="https://heroku.com/deploy/?template=https://github.com/interstellarnetwork/interstellar"><img alt="Deploy to Heroku" src="https://binbashbanana.github.io/deploy-buttons/buttons/remade/heroku.svg"></a>
 <a target="_blank" href="https://app.koyeb.com/deploy?type=git&repository=github.com/interstellarnetwork/interstellar"><img alt="Deploy to Koyeb" src="https://binbashbanana.github.io/deploy-buttons/buttons/remade/koyeb.svg"></a>
@@ -59,15 +74,19 @@ As of January 1st, 2024, Replit is [no longer free](https://blog.replit.com/host
 3. Go to the ports tab, Click Forward A Port, And type the port number.
 4. Right-click Visibility and set Port Visibility to Public.
 
-> [!TIP]
-> If you're having trouble, don't hesitate reach out to us on [Discord](https://discord.gg/interstellar) for personalized support.
+> [!NOTE] 
+> We are really committed to making Interstellar easy and personalized however, as of now we need your support in making it ad-free. Consider keeping ads so Interstellar can run freely or contribute by being a 
+> supporter. 
+
+
 
 ## Report Issues
 
 If you encounter problems, open an issue on GitHub, and we'll address it promptly.
-
+> [!TIP]
+> If you're having trouble, don't hesitate reach out to us on [Discord](https://discord.gg/interstellar) for personalized support.
 # Credits
 
-A huge thank you to all of the people who have contributed to Interstellar.
+A huge thanks goes out to all of the people who have contributed to Interstellar.
 
 [![Contributors](https://contrib.rocks/image?repo=InterstellarNetwork/Interstellar)](https://github.com/InterstellarNetwork/Interstellar/graphs/contributors)

@@ -9,39 +9,35 @@
     <link rel="shortcut icon" id="tab-favicon" href="favicon.png" />
     <title id="tab-title">Home</title>
     <link rel="stylesheet" href="/assets/styles/main.css?v=8" />
-    <link rel="stylesheet" href="/assets/styles/settings.css?v=4" />
+    <link rel="stylesheet" href="/assets/styles/settings.css?v=5" />
     <link rel="stylesheet" href="/assets/styles/themes/default.css?v=5" />
     <script src="https://kit.fontawesome.com/1237c86ba0.js" crossorigin="anonymous"></script>
   </head>
   <body>
-    <div class="fixed-nav-bar">
-      <div class="fixed-nav-bar-container">
-        <a class="icon" href="/./"><img alt="nav" id="INImg" src="/assets/media/favicon/main.png" /></a>
-      </div>
-      <div class="fixed-nav-bar-right">
-        <a class="navbar-link" href="/./-"><i class="fa-solid fa-gamepad navbar-icon"></i><xn>Ga</xn><xn>mes</xn></a>
-        <a class="navbar-link" href="/./~"><i class="fa-solid fa-phone navbar-icon"></i><xn>Ap</xn><xn>ps</xn></a>
-        <a class="navbar-link" href="/./0"><i class="fa-solid fa-laptop navbar-icon"></i><xn>Ta</xn><xn>bs</xn></a>
-        <a class="navbar-link" href="/./!"
-          ><i class="fa-solid fa-gear navbar-icon settings-icon"></i><xn>Set</xn><xn>tings</xn></a
-        >
-      </div>
-    </div>
+    <div class="fixed-nav-bar"></div>
     <div class="main">
       <div class="settings-container">
         <div class="settings-card">
           <h3>About:Blank</h3>
           <p>Cloak the site in an about:blank page and toggle about:blank on startup (enabled by default)</p>
-          <button onclick="AB()" class="key-button">Open Popup</button>
-          <button class="key-button" onclick="toggleAB()">Toggle automatic about:blank</button>
+          <div id="ab-settings">
+            <div id="ab-settings-container">
+              <label class="switch">
+                <input type="checkbox" id="ab-settings-switch" class="slider-checkbox" onchange="toggleAB()" />
+                <span class="slider-round"></span>
+              </label>
+            </div>
+            <button onclick="AB()" class="key-button">Open Popup</button>
+          </div>
         </div>
+
         <div class="settings-card">
           <h3>Set Panic Key</h3>
           <p>
             Quickly open an educational site when the teacher comes. The panic link is also used to redirect you when
-            about:blank windows are opened.
+            about:blank windows are opened. For multiple key strokes separate them with a comma. (e.g. "a, b, c")
           </p>
-          <input type="text" id="eventKeyInput" placeholder="Panic Key" class="key-form" />
+          <input type="text" id="eventKeyInput" placeholder="Panic Keys (comma separated)" class="key-form" />
           <input class="key-form" placeholder="Panic Link" type="text" id="linkInput" value />
           <button class="key-button" value="Save" onclick="saveEventKey()">Save</button>
         </div>
@@ -91,11 +87,16 @@
             <option value="GoGuardian Admin Restricted">GoGuardian Admin Block</option>
             <option value="GoGuardian Teacher Block">GoGuardian Teacher Block</option>
             <option value="World History Encyclopedia">World History Encyclopedia</option>
+            <option value="Big Ideas Math">Big Ideas Math</option>
+            <option value="Big Ideas Math Assignment Player">Big Ideas Math Assignment Player</option>
           </select>
           <input class="key-form" type="text" id="icon" placeholder="Change Tab Icon" name="icon" />
           <input class="key-form" type="text" id="name" name="name" placeholder="Change Tab Name" />
           <button class="key-button" value="Save" onclick="CustomIcon(); CustomName(); redirectToMainDomain();">
             Save
+          </button>
+          <button class="key-button" value="Reset" onclick="ResetCustomCloak(); redirectToMainDomain();">
+            Reset Cloak
           </button>
         </div>
         <div class="settings-card">
@@ -143,15 +144,6 @@
           </select>
         </div>
         <div class="settings-card">
-          <h3>Analytics</h3>
-          <p>
-Analytics are not crucial to the site but it just helps us know how many people are using the site, and what kind of user we should be trying to cater towards.          </p>
-          <select id="aType" onchange="aChange(this)">
-            <option value="default">Default</option>
-            <option value="off">Off</option>
-          </select>
-        </div>
-        <div class="settings-card">
           <h3>Particles</h3>
           <p>Add the particles that are from the previous version to the new site.</p>
           <label class="switch">
@@ -175,16 +167,29 @@ Analytics are not crucial to the site but it just helps us know how many people 
         <div class="settings-card">
           <h3>Site Info</h3>
           <p>Version: 5.1.5</p>
-          <p id="last-updated">Last Updated: April 3rd, 2024</p>
+          <p id="last-updated">Last Updated: April 15th, 2024</p>
           <p>
             Questions? Need more links? Join our community at
             <a style="color: white" href="https://discord.gg/interstellar">discord.gg/interstellar</a>!
           </p>
+<!----<a style="color: white" href="/tos">By using Interstellar, you agree you understand and acknowledge our Terms of Service and Privacy Policy.</a --->
         </div>
       </div>
     </div>
-    <script src="/assets/scripts/main.js?v=20"></script>
-    <script src="/assets/scripts/settings.js?v=14"></script>
+    <script src="/assets/scripts/main.js?v=34"></script>
+    <script src="/assets/scripts/settings.js?v=21"></script>
+    <!-- DO NOT REMOVE-->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WKJQ5QHQTJ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || []
+      function gtag() {
+        dataLayer.push(arguments)
+      }
+      gtag('js', new Date())
+
+      gtag('config', 'G-WKJQ5QHQTJ')
+    </script>
+    <!-- DO NOT REMOVE-->
     <div id="adv"></div>
   </body>
 </html>
